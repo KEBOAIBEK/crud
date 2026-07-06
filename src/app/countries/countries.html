@@ -1,7 +1,12 @@
 <div class="flex p-10 flex-col">
   <div class="flex justify-between w-full px-4">
     <h1 class="text-3xl font-bold">Countries</h1>
-    <button class="bg-blue-500 text-white px-4 py-2 rounded">Qoshish</button>
+    <button
+      (click)="openModal()"
+      class="bg-blue-500 text-white px-4 py-2 rounded"
+    >
+      Qoshish
+    </button>
   </div>
   <div
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10"
@@ -29,3 +34,66 @@
     }
   </div>
 </div>
+
+<!-- Modal -->
+@if(isModalOpen()) {
+<form
+  [formGroup]="form"
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+>
+  <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
+    <!-- X tugmasi -->
+    <button
+      (click)="closeModal()"
+      class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-xl font-bold leading-none"
+    ></button>
+
+    <h2 class="text-xl font-bold mb-4">Davlat qo'shish / Tahrirlash</h2>
+
+    <div class="flex flex-col gap-3">
+      <div>
+        <label class="text-sm text-gray-600">Davlat nomi</label>
+        <input
+          type="text"
+          placeholder="Masalan: Uzbekistan"
+          class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          formControlName="country"
+        />
+      </div>
+      <div>
+        <label class="text-sm text-gray-600">Davlat kodi (Code)</label>
+        <input
+          type="text"
+          placeholder="Masalan: uz"
+          class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          formControlName="code"
+        />
+      </div>
+      <div>
+        <label class="text-sm text-gray-600">Ta'rifi (Description)</label>
+        <textarea
+          placeholder="Davlat haqida qisqacha ma'lumot..."
+          rows="3"
+          class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          formControlName="description"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-5">
+      <button
+        (click)="closeModal()"
+        class="px-4 py-2 rounded border text-gray-600 hover:bg-gray-100"
+      >
+        Bekor qilish
+      </button>
+      <button
+        class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+        (click)="submit()"
+      >
+        Saqlash
+      </button>
+    </div>
+  </div>
+</form>
+}
