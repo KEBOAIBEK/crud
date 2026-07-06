@@ -1,0 +1,31 @@
+<div class="flex p-10 flex-col">
+  <div class="flex justify-between w-full px-4">
+    <h1 class="text-3xl font-bold">Countries</h1>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded">Qoshish</button>
+  </div>
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-10"
+  >
+    @for(item of countries(); track item.id){
+    <div class="flex flex-col rounded-lg overflow-hidden border p-4">
+      <img
+        [src]="'https://flagcdn.com/w640/' + (item.code | lowercase) + '.png'"
+        class="w-full h-48 object-cover"
+        alt="flags"
+      />
+
+      <div class="flex flex-col">
+        <h2>{{item.country}}</h2>
+        <p>{{item.description}}</p>
+      </div>
+      <div class="flex justify-between mt-2 gap-2">
+        <button class="w-2/3 bg-blue-500 text-white px-4 py-2 rounded">
+          Batafsil
+        </button>
+        <button class="bg-yellow-500 text-white px-4 py-2 rounded">Edit</button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+      </div>
+    </div>
+    }
+  </div>
+</div>
