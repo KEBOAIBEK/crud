@@ -9,6 +9,14 @@ import {
   signal,
 } from '@angular/core';
 
+interface Country {
+  name: string;
+  country: string;
+  code: string;
+  id: string;
+  description?: string;
+}
+
 @Component({
   selector: 'app-countries',
   imports: [LowerCasePipe, ReactiveFormsModule],
@@ -20,7 +28,7 @@ export class Countries implements OnInit {
   private http = inject(HttpClient);
   private fb = inject(FormBuilder);
 
-  countries = signal<any[]>([]);
+  countries = signal<Country[]>([]);
   isModalOpen = signal(false);
 
   form = this.fb.group({
@@ -30,8 +38,12 @@ export class Countries implements OnInit {
   });
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll() {
     this.http
-      .get<any[]>('https://6a3a0ce7917c7b14c74c9ee6.mockapi.io/Country')
+      .get<Country[]>('https://6a3a0ce7917c7b14c74c9ee6.mockapi.io/Country')
       .subscribe((country) => {
         this.countries.set(country);
       });
@@ -42,7 +54,7 @@ export class Countries implements OnInit {
     this.http
       .post('https://6a3a0ce7917c7b14c74c9ee6.mockapi.io/Country', model)
       .subscribe({
-        next: (response) => {
+        next: (response: any) => {
           if (response) {
             this.countries.update((list) => [response, ...list]);
             this.closeModal();
